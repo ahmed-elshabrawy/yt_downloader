@@ -24,25 +24,25 @@ def get_download_link():
         # Define download options based on the user's choice
         if choice == "1":  # High Resolution Video
             ydl_opts = {
-                'format': 'bestvideo+bestaudio/best',  # Download best video and audio, and merge
-                # 'format': 'bestvideo[ext=mp4]+bestaudio[ext=mp4]/mp4+best[height<=480]',  # Download best video and audio, and merge
-                'merge_output_format': 'mp4',         # Ensure the output is in MP4 format
+                'format': 'bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]',
                 'progress_hooks': [progress_hook],
-                'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s')  # Set custom download path
+                'outtmpl': os.path.join(download_path, '%(title)s_HighRes.%(ext)s')  # Set custom download path
             }
             option_text = "High Resolution Video"
         elif choice == "2":  # Low Resolution Video
             ydl_opts = {
-                'format': 'worstvideo',  # Download only the lowest resolution video
+                'format': 'worst',
                 'progress_hooks': [progress_hook],
-                'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s')  # Set custom download path
+                'outtmpl': os.path.join(download_path, '%(title)s_LowRes.%(ext)s')  # Set custom download path
+                
             }
             option_text = "Low Resolution Video"
         elif choice == "3":  # Audio Only
             ydl_opts = {
-                'format': 'bestaudio',  # Download only the best audio (no video)
+                'format': 'bestaudio[ext=mp3]/bestaudio',
+                # 'format': 'bestaudio',  # Download only the best audio (no video)
                 'progress_hooks': [progress_hook],
-                'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s')  # Set custom download path
+                'outtmpl': os.path.join(download_path, '%(title)s_Audio.%(ext)s')  # Set custom download path
             }
             option_text = "Audio Only"
         else:
@@ -154,16 +154,6 @@ radio_button_3 = tk.Radiobutton(
     width=20
 )
 radio_button_3.grid(row=0, column=2, padx=20, pady=5, sticky="ew")  # Third button
-
-
-# radio_button_1 = tk.Radiobutton(root, text="High Resolution Video", variable=selected_option, value="1", font=("Helvetica", 12), bg="#f4f4f9")
-# radio_button_1.pack(anchor="w", padx=20)
-
-# radio_button_2 = tk.Radiobutton(root, text="Low Resolution Video", variable=selected_option, value="2", font=("Helvetica", 12), bg="#f4f4f9")
-# radio_button_2.pack(anchor="w", padx=20)
-
-# radio_button_3 = tk.Radiobutton(root, text="Audio Only", variable=selected_option, value="3", font=("Helvetica", 12), bg="#f4f4f9")
-# radio_button_3.pack(anchor="w", padx=20)
 
 # Button to select download path
 path_button = tk.Button(root, text="Select Download Path", command=select_download_path, font=("Helvetica", 12), bg="#4CAF50", fg="white", relief="flat")
